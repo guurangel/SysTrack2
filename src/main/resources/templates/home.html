@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Home - SysTrack</title>
+    <style>
+        /* Corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f2ff; /* azul claro */
+            color: #00264d; /* azul escuro */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Barra de Navegação */
+        nav {
+            background-color: #0059b3; /* azul escuro */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            background-color: #3399ff; /* azul claro */
+            border-radius: 5px;
+        }
+
+        /* Container principal */
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00264d;
+            margin-top: 40px;
+        }
+
+        .category-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .category-box {
+            background-color: white;
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-box h3 {
+            color: #0059b3; /* azul escuro */
+        }
+
+        .category-box a {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #0059b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .category-box a:hover {
+            background-color: #3399ff;
+        }
+
+        .logout-btn {
+            background-color: #d9534f; /* vermelho para logout */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logout-btn:hover {
+            background-color: #c9302c;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Barra de Navegação -->
+<nav>
+    <div>
+        <a href="/home">Home</a>
+        <a href="/motos">Motos</a>
+        <a href="/patios">Pátios</a>
+        <a href="/usuarios">Usuários</a>
+    </div>
+    <form th:action="@{/login}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</nav>
+
+<!-- Conteúdo da Home Page -->
+<div class="container">
+    <h1>Bem-vindo ao SysTrack</h1>
+
+    <div class="category-container">
+        <!-- Categoria Usuários -->
+        <div class="category-box">
+            <h3>Usuários</h3>
+            <a th:href="@{/usuarios}">Gerenciar Usuários</a>
+            <a th:href="@{/usuarios/listar}">Listar Usuários</a>
+        </div>
+
+        <!-- Categoria Pátios -->
+        <div class="category-box">
+            <h3>Pátios</h3>
+            <a th:href="@{/patios}">Gerenciar Pátios</a>
+            <a th:href="@{/patios/listar}">Listar Pátios</a>
+        </div>
+
+        <!-- Categoria Motos -->
+        <div class="category-box">
+            <h3>Motos</h3>
+            <a th:href="@{/motos}">Gerenciar Motos</a>
+            <a th:href="@{/motos/listar}">Listar Motos</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -28,7 +28,7 @@ public class SecurityConfig {
             return org.springframework.security.core.userdetails.User.builder()
                     .username(usuario.getEmail())
                     .password(usuario.getSenha())
-                    .roles(usuario.getRole()) // apenas ADMIN ou USER
+                    .roles(usuario.getRole()) // atribui o papel: 'USER' ou 'ADMIN'
                     .build();
         };
     }
@@ -37,35 +37,36 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        // H2 console liberado
-                        .requestMatchers("/h2-console/**").permitAll()
+                        // Permitir o acesso à página de login e à consola do H2 sem autenticação
+                        .requestMatchers("/login", "/css/**", "/js/**", "/h2-console/**").permitAll()
 
-                        // Usuário comum pode apenas visualizar GET
-                        .requestMatchers(HttpMethod.GET, "/patios/**", "/motos/**").hasAnyRole("ADMIN", "USER")
+                        // Acesso à Home para usuários e administradores
+                        .requestMatchers("/home").hasAnyRole("USER", "ADMIN")
 
-                        // Métodos POST, PUT, DELETE apenas ADMIN
-                        .requestMatchers(HttpMethod.POST, "/patios/**", "/motos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/patios/**", "/motos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/patios/**", "/motos/**").hasRole("ADMIN")
+                        // Listagem de motos e pátios para USER e ADMIN
+                        .requestMatchers(HttpMethod.GET, "/motos/**", "/patios/**").hasAnyRole("USER", "ADMIN")
 
-                        // Usuários apenas ADMIN
-                        .requestMatchers("/usuarios/**").hasRole("ADMIN")
+                        // Admins têm permissão para CRUD completo em motos, pátios e usuários
+                        .requestMatchers(HttpMethod.POST, "/motos/**", "/patios/**", "/usuarios/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/motos/**", "/patios/**", "/usuarios/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/motos/**", "/patios/**", "/usuarios/**").hasRole("ADMIN")
 
-                        // qualquer outro endpoint precisa de login
+                        // Qualquer outro endpoint requer autenticação
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")            // rota do login Thymeleaf
-                        .defaultSuccessUrl("/motos")    // redireciona após login
+                        .loginPage("/login")            // Página de login personalizada
+                        .defaultSuccessUrl("/home")     // Redireciona para /home após login bem-sucedido
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutUrl("/logout")           // URL de logout
+                        .logoutSuccessUrl("/login?logout") // Redireciona para login após logout
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-                .headers(headers -> headers.frameOptions(frame -> frame.disable()));
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")) // Ignora CSRF para a consola H2
+                .headers(headers -> headers.frameOptions(frame -> frame.disable())) // Permite a utilização do H2 no navegador
+        ;
 
         return http.build();
     }

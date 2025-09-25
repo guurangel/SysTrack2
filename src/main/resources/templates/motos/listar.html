@@ -90,8 +90,7 @@
         <td th:text="${moto.nomeUsuario}"></td>
         <td>
             <a th:href="@{'/motos/editar/' + ${moto.id}}">Editar</a>
-            <form th:action="@{'/motos/' + ${moto.id}}" method="post">
-                <input type="hidden" name="_method" value="delete"/>
+            <form th:action="@{'/motos/excluir/' + ${moto.id}}" method="post">
                 <button type="submit">Excluir</button>
             </form>
         </td>
