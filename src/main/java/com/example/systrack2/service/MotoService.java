@@ -62,6 +62,12 @@ public class MotoService {
         Moto moto = motoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Moto não encontrada"));
 
+        // Se a placa foi alterada, verificar duplicidade
+        if (!moto.getPlaca().equals(dto.getPlaca())
+                && motoRepository.findByPlaca(dto.getPlaca()).isPresent()) {
+            throw new IllegalArgumentException("Placa já cadastrada");
+        }
+
         Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
@@ -94,3 +100,4 @@ public class MotoService {
         return dto;
     }
 }
+
