@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patios - SysTrack</title>
+</head>
+<body>
+<h1>Patios</h1>
+<a th:href="@{/patios/criar}">Criar Novo Patio</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ações</th>
+    </tr>
+    <tr th:each="patio : ${patios}">
+        <td th:text="${patio.id}"></td>
+        <td th:text="${patio.nome}"></td>
+        <td>
+            <a th:href="@{'/patios/editar/' + ${patio.id}}">Editar</a>
+            <form th:action="@{'/patios/' + ${patio.id}}" method="post" style="display:inline">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit">Excluir</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

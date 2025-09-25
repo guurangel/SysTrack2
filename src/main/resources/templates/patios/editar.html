@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Patio</title>
+</head>
+<body>
+<h1>Editar Patio</h1>
+<form th:action="@{'/patios/' + ${patio.id}}" method="post">
+    <input type="hidden" name="_method" value="put"/>
+    <label>Nome:</label>
+    <input type="text" name="nome" th:value="${patio.nome}"/><br/>
+    <button type="submit">Atualizar</button>
+</form>
+</body>
+</html>
