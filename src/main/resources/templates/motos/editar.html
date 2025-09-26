@@ -6,16 +6,11 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e6f2ff; /* azul claro */
-            color: #00264d; /* azul escuro */
+            background-color: #e6f2ff;
+            color: #00264d;
             margin: 20px;
         }
-
-        h1 {
-            color: #00264d;
-            text-align: center;
-        }
-
+        h1 { color: #00264d; text-align: center; }
         form {
             max-width: 500px;
             margin: 0 auto;
@@ -24,10 +19,9 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-
         .error-message {
-            background-color: #ffcccc; /* vermelho claro */
-            color: #b30000; /* vermelho escuro */
+            background-color: #ffcccc;
+            color: #b30000;
             border: 1px solid #b30000;
             padding: 10px;
             margin-bottom: 15px;
@@ -35,54 +29,18 @@
             text-align: center;
             font-weight: bold;
         }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #00264d;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #0059b3;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #3399ff;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 10px;
-            text-decoration: none;
-            color: white;
-            background-color: #0059b3;
-            padding: 8px 12px;
-            border-radius: 5px;
-        }
-
-        a:hover {
-            background-color: #3399ff;
-        }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #00264d; border-radius: 5px; }
+        button { background-color: #0059b3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #3399ff; }
+        a { display: inline-block; margin-top: 10px; text-decoration: none; color: white; background-color: #0059b3; padding: 8px 12px; border-radius: 5px; }
+        a:hover { background-color: #3399ff; }
     </style>
 </head>
 <body>
 <h1>Editar Moto</h1>
 
 <form th:action="@{'/motos/atualizar/' + ${moto.id}}" method="post">
-    <!-- Exibe a mensagem de erro, se existir -->
     <div th:if="${erro}" class="error-message" th:text="${erro}"></div>
 
     <label for="placa">Placa:</label>
@@ -96,7 +54,8 @@
         <option th:each="patio : ${patios}"
                 th:value="${patio.id}"
                 th:text="${patio.nome}"
-                th:selected="${patio.id} == ${moto.patio.id}"></option>
+                th:selected="${patio.id} == ${moto.patioId}">
+        </option>
     </select>
 
     <label for="usuario">Usuário:</label>
@@ -104,12 +63,13 @@
         <option th:each="usuario : ${usuarios}"
                 th:value="${usuario.id}"
                 th:text="${usuario.nome}"
-                th:selected="${usuario.id} == ${moto.usuario.id}"></option>
+                th:selected="${usuario.id} == ${moto.usuarioId}">
+        </option>
     </select>
 
     <button type="submit">Atualizar</button>
 </form>
 
-<a th:href="@{/motos}">Voltar para Listagem</a>
+<a th:href="@{/motos/gerenciar}">Voltar para Gerenciar</a>
 </body>
 </html>

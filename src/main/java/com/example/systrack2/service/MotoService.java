@@ -95,7 +95,9 @@ public class MotoService {
         dto.setId(moto.getId());
         dto.setPlaca(moto.getPlaca());
         dto.setModelo(moto.getModelo());
+        dto.setUsuarioId(moto.getUsuario() != null ? moto.getUsuario().getId() : null); // ADICIONADO
         dto.setNomeUsuario(moto.getUsuario() != null ? moto.getUsuario().getNome() : null);
+        dto.setPatioId(moto.getPatio() != null ? moto.getPatio().getId() : null);       // ADICIONADO
         dto.setNomePatio(moto.getPatio() != null ? moto.getPatio().getNome() : null);
         return dto;
     }
