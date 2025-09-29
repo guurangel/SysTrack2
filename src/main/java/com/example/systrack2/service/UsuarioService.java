@@ -28,7 +28,9 @@ public class UsuarioService {
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
         usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
-        usuario.setRole(dto.getRole());
+
+        // Sempre padrão USER no cadastro
+        usuario.setRole("USER");
 
         usuario = usuarioRepository.save(usuario);
         return toResponse(usuario);
@@ -53,10 +55,14 @@ public class UsuarioService {
 
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
+
         if (dto.getSenha() != null && !dto.getSenha().isEmpty()) {
             usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
         }
-        usuario.setRole(dto.getRole());
+        // Somente admin pode mudar a role
+        if (dto.getRole() != null && dto.getRole().equalsIgnoreCase("ADMIN")) {
+            usuario.setRole("ADMIN");
+        }
 
         usuario = usuarioRepository.save(usuario);
         return toResponse(usuario);

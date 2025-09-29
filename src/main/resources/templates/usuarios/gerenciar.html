@@ -15,7 +15,7 @@
 
 <!-- Conteúdo Principal -->
 <div class="page-content">
-    <h2>Listar Usuários</h2>
+    <h2>Gerenciar Usuários</h2>
 
     <table class="table-usuarios">
         <thead>
@@ -24,6 +24,7 @@
             <th>Nome</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -32,6 +33,11 @@
             <td th:text="${usuario.nome}"></td>
             <td th:text="${usuario.email}"></td>
             <td th:text="${usuario.role}"></td>
+            <td>
+                <a th:href="@{|/usuarios/editar/${usuario.id}|}" class="btn btn-primary">Editar</a>
+                <a th:href="@{|/usuarios/excluir/${usuario.id}|}" class="btn btn-danger"
+                   onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+            </td>
         </tr>
         </tbody>
     </table>
