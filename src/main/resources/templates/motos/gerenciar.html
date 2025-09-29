@@ -3,103 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Motos - SysTrack</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e6f2ff; /* azul claro de fundo */
-            color: #00264d; /* azul escuro para textos */
-            margin: 20px;
-        }
-
-        h1 {
-            color: #00264d;
-            text-align: center;
-        }
-
-        a {
-            text-decoration: none;
-            color: white;
-            background-color: #0059b3; /* azul escuro */
-            padding: 8px 12px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        a:hover {
-            background-color: #3399ff; /* azul claro ao passar o mouse */
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: white;
-        }
-
-        th, td {
-            border: 1px solid #00264d;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #0059b3; /* azul escuro */
-            color: white;
-        }
-
-        td {
-            color: #00264d;
-        }
-
-        button {
-            background-color: #0059b3;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #3399ff;
-        }
-
-        form {
-            display: inline;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/motos.css}">
 </head>
 <body>
 
-<!-- Inclui o cabeçalho -->
-<div th:replace="fragments :: header"></div>
-<h1>Motos</h1>
-<a th:href="@{/motos/criar}">Adicionar Moto</a>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Placa</th>
-        <th>Modelo</th>
-        <th>Patio</th>
-        <th>Usuário</th>
-        <th>Ações</th>
-    </tr>
-    <tr th:each="moto : ${motos}">
-        <td th:text="${moto.id}"></td>
-        <td th:text="${moto.placa}"></td>
-        <td th:text="${moto.modelo}"></td>
-        <td th:text="${moto.nomePatio}"></td>
-        <td th:text="${moto.nomeUsuario}"></td>
-        <td>
-            <a th:href="@{'/motos/editar/' + ${moto.id}}">Editar</a>
-            <form th:action="@{'/motos/excluir/' + ${moto.id}}" method="post">
-                <button type="submit">Excluir</button>
-            </form>
-        </td>
-    </tr>
-</table>
-<!-- Inclui o rodapé -->
-<div th:replace="fragments :: footer"></div>
+<!-- Incluir Header -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="page-content">
+    <h1>Motos</h1>
+    <a class="btn btn-create" th:href="@{/motos/criar}">Cadastrar Nova Moto</a>
+    <table class="table-motos">
+        <tr>
+            <th>ID</th>
+            <th>Placa</th>
+            <th>Modelo</th>
+            <th>Patio</th>
+            <th>Usuário</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="moto : ${motos}">
+            <td th:text="${moto.id}"></td>
+            <td th:text="${moto.placa}"></td>
+            <td th:text="${moto.modelo}"></td>
+            <td th:text="${moto.nomePatio}"></td>
+            <td th:text="${moto.nomeUsuario}"></td>
+            <td>
+                <a th:href="@{|/motos/editar/${moto.id}|}" class="btn btn-primary">Editar</a>
+                <a th:href="@{|/motos/excluir/${moto.id}|}" class="btn btn-danger"
+                   onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- Incluir Header -->
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

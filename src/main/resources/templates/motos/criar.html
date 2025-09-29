@@ -3,108 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Adicionar Moto - SysTrack</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e6f2ff; /* azul claro */
-            color: #00264d; /* azul escuro */
-            margin: 20px;
-        }
-
-        h1 {
-            color: #00264d;
-            text-align: center;
-        }
-
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .error-message {
-            background-color: #ffcccc; /* vermelho claro */
-            color: #b30000; /* vermelho escuro */
-            border: 1px solid #b30000;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #00264d;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #0059b3;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #3399ff;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 10px;
-            text-decoration: none;
-            color: white;
-            background-color: #0059b3;
-            padding: 8px 12px;
-            border-radius: 5px;
-        }
-
-        a:hover {
-            background-color: #3399ff;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/motos.css}">
 </head>
 <body>
-<h1>Adicionar Moto</h1>
+<!-- Incluir Header -->
+<div th:replace="fragments/header :: header"></div>
+<div class="page-content">
 
-<form th:action="@{/motos}" th:object="${moto}" method="post">
+    <h1>Adicionar Moto</h1>
 
-    <!-- Exibe a mensagem de erro, se existir -->
-    <div th:if="${erro}" class="error-message" th:text="${erro}"></div>
+    <form th:action="@{/motos}" th:object="${moto}" method="post" class="form-container">
 
-    <label for="placa">Placa:</label>
-    <input type="text" id="placa" th:field="*{placa}" required/>
+        <!-- Exibe a mensagem de erro, se existir -->
+        <div th:if="${erro}" class="error-message" th:text="${erro}"></div>
 
-    <label for="modelo">Modelo:</label>
-    <input type="text" id="modelo" th:field="*{modelo}" required/>
+        <label for="placa">Placa:</label>
+        <input type="text" id="placa" th:field="*{placa}" required/>
 
-    <label for="usuario">Usuário:</label>
-    <select id="usuario" th:field="*{usuarioId}" required>
-        <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>
-    </select>
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" th:field="*{modelo}" required/>
 
-    <label for="patio">Pátio:</label>
-    <select id="patio" th:field="*{patioId}" required>
-        <option th:each="patio : ${patios}" th:value="${patio.id}" th:text="${patio.nome}"></option>
-    </select>
+        <label for="usuario">Usuário:</label>
+        <select id="usuario" th:field="*{usuarioId}" required>
+            <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>
+        </select>
 
-    <button type="submit">Salvar Moto</button>
-</form>
+        <label for="patio">Pátio:</label>
+        <select id="patio" th:field="*{patioId}" required>
+            <option th:each="patio : ${patios}" th:value="${patio.id}" th:text="${patio.nome}"></option>
+        </select>
 
-<a th:href="@{/motos}">Voltar para Listagem</a>
+        <button type="submit">Salvar Moto</button>
+    </form>
+    <a th:href="@{/motos/gerenciar}">Voltar para Gerenciar Motos</a>
+</div>
+<!-- Incluir Footer -->
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
