@@ -4,145 +4,32 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Home - SysTrack</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        /* Reset básico */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* ================= NAVBAR ================= */
-        .navbar {
-            background: linear-gradient(90deg, #004080, #0066cc);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-        }
-
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 16px;
-            font-weight: 500;
-            transition: color 0.3s, transform 0.2s;
-        }
-
-        .navbar a:hover {
-            color: #ffdd57;
-            transform: translateY(-2px);
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-        }
-
-        .logout-btn {
-            background-color: #d9534f;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .logout-btn:hover {
-            background-color: #c9302c;
-            transform: scale(1.05);
-        }
-
-        /* ================= FOOTER ================= */
-        footer {
-            margin-top: auto;
-            background: #004080;
-            color: #fff;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 14px;
-            box-shadow: 0 -2px 6px rgba(0,0,0,0.15);
-        }
-
-        /* Container principal */
-        .container {
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #00264d;
-            margin-top: 40px;
-        }
-
-        .category-container {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-        }
-
-        .category-box {
-            background-color: white;
-            width: 250px;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .category-box h3 {
-            color: #0059b3;
-        }
-
-        .category-box a {
-            display: block;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #0059b3;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .category-box a:hover {
-            background-color: #3399ff;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
 
-<!-- Inclui o cabeçalho (nav + logout) -->
-<div th:replace="fragments :: header"></div>
+<!-- Incluir Header -->
+<div th:replace="fragments/header :: header"></div>
 
 <!-- Conteúdo da Home Page -->
-<div class="container">
+<div class="page-content home-container">
     <h1>Bem-vindo ao SysTrack</h1>
 
     <div class="category-container">
         <!-- Categoria Usuários -->
         <div class="category-box">
             <h3>Usuários</h3>
-            <a th:href="@{/usuarios}" sec:authorize="hasRole('ADMIN')">Gerenciar Usuários</a>
+            <a th:href="@{/usuarios/gerenciar}" sec:authorize="hasRole('ADMIN')">Gerenciar Usuários</a>
             <a th:href="@{/usuarios/listar}" sec:authorize="hasAnyRole('ADMIN','USER')">Listar Usuários</a>
         </div>
 
         <!-- Categoria Pátios -->
         <div class="category-box">
             <h3>Pátios</h3>
-            <a th:href="@{/patios}" sec:authorize="hasRole('ADMIN')">Gerenciar Pátios</a>
+            <a th:href="@{/patios/gerenciar}" sec:authorize="hasRole('ADMIN')">Gerenciar Pátios</a>
             <a th:href="@{/patios/listar}" sec:authorize="hasAnyRole('ADMIN','USER')">Listar Pátios</a>
         </div>
 
@@ -155,8 +42,8 @@
     </div>
 </div>
 
-<!-- Inclui o rodapé -->
-<div th:replace="fragments :: footer"></div>
+<!-- Incluir Footer -->
+<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>
