@@ -28,7 +28,7 @@ public class SecurityConfig {
             return org.springframework.security.core.userdetails.User.builder()
                     .username(usuario.getEmail())
                     .password(usuario.getSenha())
-                    .roles(usuario.getRole()) // atribui o papel: 'USER' ou 'ADMIN'
+                    .roles(usuario.getRole()) // no banco deve ser apenas "USER" ou "ADMIN"
                     .build();
         };
     }
@@ -37,36 +37,26 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        // Permitir o acesso à página de login e à consola do H2 sem autenticação
-                        .requestMatchers("/login", "/css/**", "/js/**", "/h2-console/**").permitAll()
-
-                        // Acesso à Home para usuários e administradores
+                        .requestMatchers("/login", "/usuarios/cadastrar-se", "/css/**", "/js/**", "/h2-console/**").permitAll()
                         .requestMatchers("/home").hasAnyRole("USER", "ADMIN")
-
-                        // Listagem de motos e pátios para USER e ADMIN
                         .requestMatchers(HttpMethod.GET, "/motos/**", "/patios/**").hasAnyRole("USER", "ADMIN")
-
-                        // Admins têm permissão para CRUD completo em motos, pátios e usuários
                         .requestMatchers(HttpMethod.POST, "/motos/**", "/patios/**", "/usuarios/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/motos/**", "/patios/**", "/usuarios/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/motos/**", "/patios/**", "/usuarios/**").hasRole("ADMIN")
-
-                        // Qualquer outro endpoint requer autenticação
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")            // Página de login personalizada
-                        .defaultSuccessUrl("/home")     // Redireciona para /home após login bem-sucedido
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")           // URL de logout
-                        .logoutSuccessUrl("/login?logout") // Redireciona para login após logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")) // Ignora CSRF para a consola H2
-                .headers(headers -> headers.frameOptions(frame -> frame.disable())) // Permite a utilização do H2 no navegador
-        ;
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return http.build();
     }
