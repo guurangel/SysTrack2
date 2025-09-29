@@ -10,6 +10,7 @@
 - [📌 Endpoints da API](#-endpoints-da-api)
 - [✅ Funcionalidades](#-funcionalidades)
 - [🗃️ Modelo de Dados](#-modelo-de-dados)
+- [🗂 Estrutura do Projeto](#-estrutura-do-projeto)
 - [👨‍💻 Nossa equipe](#-nossa-equipe)
 
 ---
@@ -102,6 +103,24 @@ name: String
 adress: String
 maxCapacity: Integer
 ```
+
+---
+
+## 🗂 Estrutura do Projeto
+
+```plaintext
+src/
+├── controller/     # Controladores REST
+├── service/        # Lógica de negócio
+├── repository/     # Acesso a dados
+├── domain/         # Entidades JPA
+├── DTO/           # Objetos de transferência
+├── config/         # Configurações
+└── resources/      # Templates e estáticos
+
+```
+
+**Descrição:** estrutura do projeto segue uma arquitetura em camadas, organizada para garantir separação de responsabilidades. Os diretórios incluem configurações, controllers, services, Infrastructure, DTOs, recursos estáticos, e o README.
 
 ---
 
