@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Motos - SysTrack</title>
+    <title>Gerenciar Motos - SysTrack</title>
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
@@ -10,25 +10,34 @@
 </head>
 <body>
 
-<!-- Incluir Header -->
 <div th:replace="fragments/header :: header"></div>
 
 <div class="page-content">
-    <h1>Motos</h1>
+    <h1>Gerenciar Motos</h1>
     <a class="btn btn-create" th:href="@{/motos/criar}">Cadastrar Nova Moto</a>
+
     <table class="table-motos">
+        <thead>
         <tr>
             <th>ID</th>
             <th>Placa</th>
             <th>Modelo</th>
+            <th>Ano</th>
+            <th>Quilometragem</th>
+            <th>Status</th>
             <th>Patio</th>
             <th>Usuário</th>
             <th>Ações</th>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="moto : ${motos}">
             <td th:text="${moto.id}"></td>
             <td th:text="${moto.placa}"></td>
             <td th:text="${moto.modelo}"></td>
+            <td th:text="${moto.ano}"></td>
+            <td th:text="${moto.quilometragem}"></td>
+            <td th:text="${moto.status}"></td>
             <td th:text="${moto.nomePatio}"></td>
             <td th:text="${moto.nomeUsuario}"></td>
             <td>
@@ -37,9 +46,12 @@
                    onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
             </td>
         </tr>
+        </tbody>
     </table>
+    <a th:href="@{/home}" class="back-home">Voltar para Home</a>
 </div>
-<!-- Incluir Header -->
+
 <div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>

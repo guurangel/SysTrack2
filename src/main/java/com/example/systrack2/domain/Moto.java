@@ -1,5 +1,6 @@
 package com.example.systrack2.domain;
 
+import com.example.systrack2.domain.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
@@ -22,6 +23,13 @@ public class Moto {
     private String placa;
 
     private String modelo;
+
+    private int ano;
+
+    private Double quilometragem;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;  //(FUNCIONAL, MANUTENCAO)
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")

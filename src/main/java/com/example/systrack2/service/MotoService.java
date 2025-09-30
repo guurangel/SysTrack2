@@ -3,6 +3,7 @@ package com.example.systrack2.service;
 import com.example.systrack2.domain.Moto;
 import com.example.systrack2.domain.Patio;
 import com.example.systrack2.domain.Usuario;
+import com.example.systrack2.domain.enums.Status;
 import com.example.systrack2.DTO.Request.MotoRequestDTO;
 import com.example.systrack2.DTO.Response.MotoResponseDTO;
 import com.example.systrack2.repository.MotoRepository;
@@ -39,6 +40,9 @@ public class MotoService {
         moto.setModelo(dto.getModelo());
         moto.setUsuario(usuario);
         moto.setPatio(patio);
+        moto.setAno(dto.getAno()); // Setando o ano
+        moto.setQuilometragem(dto.getQuilometragem()); // Setando quilometragem
+        moto.setStatus(dto.getStatus()); // Setando status
 
         moto = motoRepository.save(moto);
 
@@ -62,7 +66,6 @@ public class MotoService {
         Moto moto = motoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Moto não encontrada"));
 
-        // Se a placa foi alterada, verificar duplicidade
         if (!moto.getPlaca().equals(dto.getPlaca())
                 && motoRepository.findByPlaca(dto.getPlaca()).isPresent()) {
             throw new IllegalArgumentException("Placa já cadastrada");
@@ -78,6 +81,9 @@ public class MotoService {
         moto.setModelo(dto.getModelo());
         moto.setUsuario(usuario);
         moto.setPatio(patio);
+        moto.setAno(dto.getAno());
+        moto.setQuilometragem(dto.getQuilometragem());
+        moto.setStatus(dto.getStatus());
 
         moto = motoRepository.save(moto);
         return toResponse(moto);
@@ -95,11 +101,15 @@ public class MotoService {
         dto.setId(moto.getId());
         dto.setPlaca(moto.getPlaca());
         dto.setModelo(moto.getModelo());
-        dto.setUsuarioId(moto.getUsuario() != null ? moto.getUsuario().getId() : null); // ADICIONADO
+        dto.setUsuarioId(moto.getUsuario() != null ? moto.getUsuario().getId() : null);
         dto.setNomeUsuario(moto.getUsuario() != null ? moto.getUsuario().getNome() : null);
-        dto.setPatioId(moto.getPatio() != null ? moto.getPatio().getId() : null);       // ADICIONADO
+        dto.setPatioId(moto.getPatio() != null ? moto.getPatio().getId() : null);
         dto.setNomePatio(moto.getPatio() != null ? moto.getPatio().getNome() : null);
+        dto.setAno(moto.getAno());
+        dto.setQuilometragem(moto.getQuilometragem());
+        dto.setStatus(moto.getStatus());
         return dto;
     }
 }
+
 

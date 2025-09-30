@@ -23,6 +23,9 @@
             <th>ID</th>
             <th>Placa</th>
             <th>Modelo</th>
+            <th>Ano</th>
+            <th>Quilometragem</th>
+            <th>Status</th>
             <th>Usuário</th>
             <th>Pátio</th>
         </tr>
@@ -32,14 +35,18 @@
             <td th:text="${moto.id}"></td>
             <td th:text="${moto.placa}"></td>
             <td th:text="${moto.modelo}"></td>
+            <td th:text="${moto.ano}"></td>
+            <td th:text="${moto.quilometragem}"></td>
+            <td th:text="${moto.status}"></td>
             <td th:text="${moto.nomeUsuario}"></td>
             <td th:text="${moto.nomePatio}"></td>
         </tr>
         </tbody>
     </table>
+    <a th:href="@{/home}" class="back-home">Voltar para Home</a>
 </div>
 
-<!-- Incluir Header -->
+<!-- Incluir Footer -->
 <div th:replace="fragments/footer :: footer"></div>
 
 </body>
