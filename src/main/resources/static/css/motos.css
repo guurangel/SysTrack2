@@ -118,3 +118,55 @@
 .back-home:hover {
     color: #3399ff;
 }
+
+.form-container {
+    max-width: 600px;
+    width: 100%;
+    margin: 30px auto; /* centraliza horizontalmente e adiciona espaço superior */
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* espaço entre os campos */
+}
+
+.form-container label {
+    font-weight: bold;
+    color: #00264d;
+}
+
+.form-container input,
+.form-container select {
+    padding: 12px;
+    border: 1px solid #00264d;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-container button {
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    background-color: #0059b3;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.form-container button:hover {
+    background-color: #3399ff;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centraliza conteúdo dentro da página */
+    padding: 40px 20px;
+}

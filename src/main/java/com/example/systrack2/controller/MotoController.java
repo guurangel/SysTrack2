@@ -24,31 +24,20 @@ public class MotoController {
     private final UsuarioService usuarioService;
     private final PatioService patioService;
 
-    // Página de Gerenciar - ADMIN
     @GetMapping("/gerenciar")
     @PreAuthorize("hasRole('ADMIN')")
-    public String gerenciarPage(
-            @RequestParam(required = false) String modelo,
-            @RequestParam(required = false) Integer ano,
-            @RequestParam(required = false) Integer quilometragemExata,
-            @RequestParam(required = false) Integer quilometragemMin,
-            @RequestParam(required = false) Integer quilometragemMax,
-            @RequestParam(required = false) String status,
-            Model model) {
+    public String gerenciarPage(@ModelAttribute("filtro") MotoFiltroDTO filtro, Model model) {
 
         List<MotoResponseDTO> motos = motoService.filtrar(
-                modelo, ano, quilometragemExata, quilometragemMin, quilometragemMax,
-                status != null && !status.isEmpty() ? status : null
+                filtro.getModelo(),
+                filtro.getAno(),
+                filtro.getQuilometragemExata(),
+                filtro.getQuilometragemMin(),
+                filtro.getQuilometragemMax(),
+                filtro.getStatus()
         );
 
         model.addAttribute("motos", motos);
-        model.addAttribute("filtroModelo", modelo);
-        model.addAttribute("filtroAno", ano);
-        model.addAttribute("filtroQuilometragemExata", quilometragemExata);
-        model.addAttribute("filtroQuilometragemMin", quilometragemMin);
-        model.addAttribute("filtroQuilometragemMax", quilometragemMax);
-        model.addAttribute("filtroStatus", status);
-
         return "motos/gerenciar";
     }
 

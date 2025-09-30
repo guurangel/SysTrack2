@@ -15,7 +15,37 @@
 <div class="page-content">
     <h1>Gerenciar Motos</h1>
     <a class="btn btn-create" th:href="@{/motos/criar}">Cadastrar Nova Moto</a>
-
+    <form th:action="@{/motos/gerenciar}" th:object="${filtro}" method="get" class="filter-form">
+        <div class="filter-group">
+            <label>Modelo:</label>
+            <input type="text" th:field="*{modelo}">
+        </div>
+        <div class="filter-group">
+            <label>Ano:</label>
+            <input type="number" th:field="*{ano}">
+        </div>
+        <div class="filter-group">
+            <label>Quilometragem Exata:</label>
+            <input type="number" th:field="*{quilometragemExata}">
+        </div>
+        <div class="filter-group">
+            <label>Quilometragem Mínima:</label>
+            <input type="number" th:field="*{quilometragemMin}">
+        </div>
+        <div class="filter-group">
+            <label>Quilometragem Máxima:</label>
+            <input type="number" th:field="*{quilometragemMax}">
+        </div>
+        <div class="filter-group">
+            <label>Status:</label>
+            <select th:field="*{status}">
+                <option value="">Todos</option>
+                <option value="FUNCIONAL">FUNCIONAL</option>
+                <option value="MANUTENCAO">MANUTENÇÃO</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+    </form>
     <table class="table-motos">
         <thead>
         <tr>
