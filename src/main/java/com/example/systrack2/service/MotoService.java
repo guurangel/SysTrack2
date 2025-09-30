@@ -12,6 +12,9 @@ import com.example.systrack2.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.systrack2.specification.MotoSpecification;
+import org.springframework.data.jpa.domain.Specification;
+import java.util.List;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -109,6 +112,36 @@ public class MotoService {
         dto.setQuilometragem(moto.getQuilometragem());
         dto.setStatus(moto.getStatus());
         return dto;
+    }
+
+    public List<MotoResponseDTO> filtrar(String modelo, Integer ano, Integer quilometragemExata,
+                                         Integer quilometragemMin, Integer quilometragemMax, String status) {
+
+        Specification<Moto> spec = null;
+
+        if (modelo != null && !modelo.isEmpty()) {
+            spec = MotoSpecification.modeloLike(modelo);
+        }
+
+        if (ano != null) {
+            spec = (spec == null) ? MotoSpecification.anoEquals(ano) : spec.and(MotoSpecification.anoEquals(ano));
+        }
+
+        if (quilometragemExata != null) {
+            spec = (spec == null) ? MotoSpecification.quilometragemEquals(quilometragemExata) : spec.and(MotoSpecification.quilometragemEquals(quilometragemExata));
+        }
+
+        if (quilometragemMin != null || quilometragemMax != null) {
+            spec = (spec == null) ? MotoSpecification.quilometragemBetween(quilometragemMin, quilometragemMax) : spec.and(MotoSpecification.quilometragemBetween(quilometragemMin, quilometragemMax));
+        }
+
+        if (status != null && !status.isEmpty()) {
+            spec = (spec == null) ? MotoSpecification.statusEquals(Status.valueOf(status)) : spec.and(MotoSpecification.statusEquals(Status.valueOf(status)));
+        }
+
+        return (spec == null ? motoRepository.findAll() : motoRepository.findAll(spec)).stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }
 

@@ -1,7 +1,9 @@
 package com.example.systrack2.controller;
 
+import com.example.systrack2.DTO.Request.MotoFiltroDTO;
 import com.example.systrack2.DTO.Request.MotoRequestDTO;
 import com.example.systrack2.DTO.Response.MotoResponseDTO;
+import com.example.systrack2.domain.enums.Status;
 import com.example.systrack2.service.MotoService;
 import com.example.systrack2.service.PatioService;
 import com.example.systrack2.service.UsuarioService;
@@ -22,25 +24,52 @@ public class MotoController {
     private final UsuarioService usuarioService;
     private final PatioService patioService;
 
-    // ================== THYMELEAF PAGES ==================
-
-    // Página de Gerenciar - apenas ADMIN
+    // Página de Gerenciar - ADMIN
     @GetMapping("/gerenciar")
     @PreAuthorize("hasRole('ADMIN')")
-    public String gerenciarPage(Model model) {
-        List<MotoResponseDTO> motos = motoService.listar();
+    public String gerenciarPage(
+            @RequestParam(required = false) String modelo,
+            @RequestParam(required = false) Integer ano,
+            @RequestParam(required = false) Integer quilometragemExata,
+            @RequestParam(required = false) Integer quilometragemMin,
+            @RequestParam(required = false) Integer quilometragemMax,
+            @RequestParam(required = false) String status,
+            Model model) {
+
+        List<MotoResponseDTO> motos = motoService.filtrar(
+                modelo, ano, quilometragemExata, quilometragemMin, quilometragemMax,
+                status != null && !status.isEmpty() ? status : null
+        );
+
         model.addAttribute("motos", motos);
-        return "motos/gerenciar"; // view de gerenciamento completa (CRUD)
+        model.addAttribute("filtroModelo", modelo);
+        model.addAttribute("filtroAno", ano);
+        model.addAttribute("filtroQuilometragemExata", quilometragemExata);
+        model.addAttribute("filtroQuilometragemMin", quilometragemMin);
+        model.addAttribute("filtroQuilometragemMax", quilometragemMax);
+        model.addAttribute("filtroStatus", status);
+
+        return "motos/gerenciar";
     }
 
-    // Página de Listar - ADMIN e USER
     @GetMapping("/listar")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    public String listarPage(Model model) {
-        List<MotoResponseDTO> motos = motoService.listar();
+    public String listarPage(@ModelAttribute("filtro") MotoFiltroDTO filtro, Model model) {
+
+        List<MotoResponseDTO> motos = motoService.filtrar(
+                filtro.getModelo(),
+                filtro.getAno(),
+                filtro.getQuilometragemExata(),
+                filtro.getQuilometragemMin(),
+                filtro.getQuilometragemMax(),
+                filtro.getStatus()
+        );
+
         model.addAttribute("motos", motos);
-        return "motos/listar"; // view apenas de listagem
+
+        return "motos/listar";
     }
+
 
     @GetMapping("/criar")
     @PreAuthorize("hasRole('ADMIN')")

@@ -1,15 +1,69 @@
-/* ================= PÁGINA GERENCIAR PÁTIOS ================= */
-/* Títulos */
+.page-content {
+    padding: 20px;
+}
+
 .page-content h2 {
     color: #00264d;
     margin-bottom: 20px;
 }
 
-/* Tabela de Pátios */
+.filter-form {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+.filter-form .filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+    flex: 1 1 150px;
+}
+
+.filter-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #00264d;
+}
+
+.filter-form input,
+.filter-form select {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #00264d;
+    font-size: 14px;
+}
+
+.filter-form button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #0059b3;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    height: 42px;
+}
+
+.filter-form button:hover {
+    background-color: #3399ff;
+}
+
+
+/* Tabela de motos (mantida igual) */
 .table-motos {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .table-motos th, .table-motos td {
@@ -27,7 +81,6 @@
     background-color: #f2f2f2;
 }
 
-/* Botões dentro da tabela */
 .table-motos a, .table-motos button {
     text-decoration: none;
     padding: 5px 10px;
@@ -53,26 +106,6 @@
     background-color: #990000;
 }
 
-/* Botão de criar novo pátio */
-.btn-create {
-    display: block;
-    width: 200px;
-    text-align: center;
-    margin: 20px auto;
-    padding: 12px;
-    background-color: #28a745;
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.btn-create:hover {
-    background-color: #218838;
-}
-
-/* Link voltar para home */
 .back-home {
     display: block;
     margin-top: 25px;
@@ -84,70 +117,4 @@
 
 .back-home:hover {
     color: #3399ff;
-}
-/* ================= FORMULÁRIOS ================= */
-.form-container {
-    max-width: 600px; /* aumenta a largura do formulário */
-    width: 100%; /* garante que ocupe até o máximo definido */
-    margin: 0 auto; /* centraliza horizontalmente */
-    background: white;
-    padding: 30px; /* aumenta o padding para ficar mais espaçoso */
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-}
-
-.form-container label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #00264d;
-}
-
-.form-container input,
-.form-container select {
-    width: 100%;
-    padding: 12px; /* aumenta o padding para melhor UX */
-    margin-bottom: 20px;
-    border: 1px solid #00264d;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
-.form-container button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    background-color: #0059b3;
-    color: white;
-    transition: background 0.3s;
-}
-
-.form-container button:hover {
-    background-color: #3399ff;
-}
-
-/* ================= PAGE-CONTENT ================= */
-.page-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* centraliza todo o conteúdo */
-    padding: 40px 20px;
-}
-
-
-.error-message {
-    background-color: #ffcccc; /* vermelho claro */
-    color: #b30000; /* vermelho escuro */
-    border: 1px solid #b30000;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
 }
