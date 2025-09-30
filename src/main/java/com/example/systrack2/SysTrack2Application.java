@@ -9,5 +9,4 @@ public class SysTrack2Application {
     public static void main(String[] args) {
         SpringApplication.run(SysTrack2Application.class, args);
     }
-
 }

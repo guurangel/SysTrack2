@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class MotoRequestDTO {
+    private Long id;
     private String placa;
     private String modelo;
     private Long usuarioId;

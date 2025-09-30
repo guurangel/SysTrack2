@@ -79,7 +79,7 @@ public class PatioController {
         }
     }
 
-    @PostMapping("/excluir/{id}")
+    @GetMapping("/excluir/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public String excluir(@PathVariable Long id) {
         patioService.excluir(id);

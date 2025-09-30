@@ -17,6 +17,7 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.List;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +31,11 @@ public class MotoService {
     public MotoResponseDTO criar(MotoRequestDTO dto) {
         if (motoRepository.findByPlaca(dto.getPlaca()).isPresent()) {
             throw new IllegalArgumentException("Placa já cadastrada");
+        }
+
+        String placaRegex = "^[A-Z]{3}-[0-9]{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$";
+        if (!dto.getPlaca().matches(placaRegex)) {
+            throw new IllegalArgumentException("Padrão de placa inválido. Placa inválida. Use o formato XXX-1234 ou XXX1X23.");
         }
 
         Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
@@ -54,6 +60,20 @@ public class MotoService {
 
     public List<MotoResponseDTO> listar() {
         return motoRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
+
+    public Map<String, List<MotoResponseDTO>> listarMotosPorPatio(Long patioId) {
+        return motoRepository.findByPatioId(patioId).stream()
+                .map(this::toResponse)
+                .collect(Collectors.groupingBy(m -> m.getStatus().name())); // converte enum para String
+    }
+
+    public List<MotoResponseDTO> listarPorPatio(Long patioId) {
+        return motoRepository.findByPatioId(patioId)
                 .stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());

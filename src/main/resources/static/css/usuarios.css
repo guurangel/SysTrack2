@@ -70,7 +70,7 @@
 .form-container input,
 .form-container select {
     width: 100%;
-    padding: 12px; /* aumenta o padding para melhor UX */
+    padding: 12px;
     margin-bottom: 20px;
     border: 1px solid #00264d;
     border-radius: 5px;
@@ -95,7 +95,19 @@
     background-color: #3399ff;
 }
 
-/* ================= PAGE-CONTENT ================= */
+.back-home {
+    display: block;
+    margin-top: 25px;
+    color: #0059b3;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.back-home:hover {
+    color: #3399ff;
+}
+
 .page-content {
     display: flex;
     flex-direction: column;

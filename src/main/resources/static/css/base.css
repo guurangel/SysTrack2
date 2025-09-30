@@ -89,3 +89,16 @@ form button {
 form button:hover {
     background-color: #3399ff;
 }
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.alert-error {
+    background-color: #ffe6e6;
+}

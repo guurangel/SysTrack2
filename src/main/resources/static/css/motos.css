@@ -28,6 +28,24 @@
     flex: 1 1 150px;
 }
 
+.btn-create {
+    display: block;
+    width: 200px;
+    text-align: center;
+    margin: 20px auto;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-create:hover {
+    background-color: #218838;
+}
+
 .filter-form label {
     font-weight: bold;
     margin-bottom: 5px;
@@ -60,6 +78,7 @@
 
 
 /* Tabela de motos (mantida igual) */
+
 .table-motos {
     width: 100%;
     border-collapse: collapse;

@@ -16,7 +16,7 @@
 
     <form th:action="@{/motos}" th:object="${moto}" method="post" class="form-container">
 
-        <div th:if="${erro}" class="error-message" th:text="${erro}"></div>
+        <div th:if="${erro}" class="alert alert-error" th:text="${erro}"></div>
 
         <label for="placa">Placa:</label>
         <input type="text" id="placa" th:field="*{placa}" required/>
