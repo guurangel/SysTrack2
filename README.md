@@ -27,7 +27,6 @@ Sistema completo de gerenciamento de pátios de veículos desenvolvido com Java 
 - ✨ Interface de administração intuitiva
 - 🔐 Sistema de autenticação e autorização com Spring Security
 - 🔍 Filtros dinâmicos e buscas avançadas
-- 📊 Dashboard com estatísticas e métricas
 - 📱 API RESTful documentada com Swagger
 - 🗃️ Persistência de dados com H2 Database
 
@@ -60,14 +59,14 @@ Sistema completo de gerenciamento de pátios de veículos desenvolvido com Java 
 ### Gerenciamento de Pátios
 - ✔️ Cadastro, edição e exclusão de pátios
 - ✔️ Controle de capacidade máxima
-- ✔️ Listagem com filtros e ordenação
 
 ### Gerenciamento de Motocicletas
 - ✔️ Cadastro completo de motocicletas
 - ✔️ Rastreamento de quilometragem
 - ✔️ Controle de status (Funcional/Manutenção)
 - ✔️ Associação com pátios
-- ✔️ Filtros por marca, modelo, ano e status
+- ✔️ Associação com usuários
+- ✔️ Filtros por modelo, ano, quilometragem e status
 
 ### Gerenciamento de Usuários
 - ✔️ Sistema de autenticação
@@ -163,54 +162,53 @@ A aplicação estará disponível em:
 
 #### Parâmetros de Filtro (Query Params)
 
-**Motocicletas:**
-- `brand` - Filtrar por marca
-- `model` - Filtrar por modelo
-- `modelYear` - Filtrar por ano
+**Moto:**
+- `modelo` - Filtrar por modelo
+- `ano` - Filtrar por ano
+- `quilometragemExata` Filtrar por quilometragem exata
+- `quilometragemMin` Filtrar por intervalo de quilometragem
+- `quilometragemMax` Filtrar por intervalo de quilometragem
 - `status` - Filtrar por status (FUNCIONAL, MANUTENCAO)
-- `page` - Número da página (padrão: 0)
-- `size` - Tamanho da página (padrão: 10)
-- `sort` - Campo de ordenação (ex: `plate,asc`)
 
 ---
 
 ## 🗃️ Modelo de Dados
 
-### Motocicleta (Motorcycle)
+### Moto
 
 ```java
 {
   "id": Long,
-  "plate": String,        // Placa do veículo
-  "brand": String,        // Marca
-  "model": String,        // Modelo
-  "modelYear": Integer,   // Ano do modelo
-  "status": String,       // FUNCIONAL ou MANUTENCAO
-  "km": Double,           // Quilometragem
-  "yard": Yard            // Pátio associado
+  "placa": String,
+  "placa": String,
+  "modelo": String,
+  "ano": int,
+  "quilometragem": Double,
+  "status": Status,       // FUNCIONAL ou MANUTENCAO
+  "patio": Patio            // Pátio associado
+  "usuario": Usuario            // Usuário associado
 }
 ```
 
-### Pátio (Yard)
+### Patio
 
 ```java
 {
   "id": Long,
-  "name": String,         // Nome do pátio
-  "address": String,      // Endereço
-  "maxCapacity": Integer  // Capacidade máxima
+  "nome": String,
+  "endereco": String,
 }
 ```
 
-### Usuário (User)
+### Usuario
 
 ```java
 {
   "id": Long,
-  "username": String,     // Nome de usuário
+  "nome": String,
   "email": String,        // E-mail
-  "password": String,     // Senha (criptografada)
-  "role": String          // Perfil de acesso
+  "senha": String,     // Senha (criptografada)
+  "role": String          // ADMIN ou USER
 }
 ```
 
