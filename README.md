@@ -11,7 +11,6 @@ Sistema completo de gerenciamento de pátios de veículos desenvolvido com Java 
 - [Funcionalidades](#-funcionalidades)
 - [Pré-requisitos](#-pré-requisitos)
 - [Como Executar](#-como-executar)
-- [Endpoints da API](#-endpoints-da-api)
 - [Modelo de Dados](#️-modelo-de-dados)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Equipe](#-equipe)
@@ -77,7 +76,6 @@ Sistema completo de gerenciamento de pátios de veículos desenvolvido com Java 
 - 🔎 Filtros dinâmicos com `JpaSpecificationExecutor`
 - 📄 Paginação e ordenação em todos os endpoints
 - 📖 Validações detalhadas com mensagens amigáveis
-- 📊 Documentação interativa via Swagger UI
 - 🧱 Arquitetura em camadas (Controller, Service, Repository)
 
 ---
@@ -117,58 +115,13 @@ mvn spring-boot:run
 
 A aplicação estará disponível em:
 
-- **Aplicação Web:** http://localhost:8080
-- **Swagger UI:** http://localhost:8080/swagger-ui.html
+- **Aplicação Web:** http://localhost:8080/home
 - **Console H2:** http://localhost:8080/h2-console
 
 #### Credenciais do H2 Console
 - **JDBC URL:** `jdbc:h2:mem:testdb`
 - **Username:** `sa`
 - **Password:** *(deixe em branco)*
-
----
-
-## 📌 Endpoints da API
-
-### Pátios (Yards)
-
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/yards` | Lista todos os pátios (com paginação) |
-| GET | `/api/yards/{id}` | Busca pátio por ID |
-| POST | `/api/yards` | Cria novo pátio |
-| PUT | `/api/yards/{id}` | Atualiza pátio existente |
-| DELETE | `/api/yards/{id}` | Remove pátio |
-
-### Motocicletas (Motorcycles)
-
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/motorcycles` | Lista todas as motocicletas (com filtros) |
-| GET | `/api/motorcycles/{id}` | Busca motocicleta por ID |
-| POST | `/api/motorcycles` | Cadastra nova motocicleta |
-| PUT | `/api/motorcycles/{id}` | Atualiza motocicleta existente |
-| DELETE | `/api/motorcycles/{id}` | Remove motocicleta |
-
-### Usuários (Users)
-
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/users` | Lista todos os usuários |
-| GET | `/api/users/{id}` | Busca usuário por ID |
-| POST | `/api/users` | Cria novo usuário |
-| PUT | `/api/users/{id}` | Atualiza usuário |
-| DELETE | `/api/users/{id}` | Remove usuário |
-
-#### Parâmetros de Filtro (Query Params)
-
-**Moto:**
-- `modelo` - Filtrar por modelo
-- `ano` - Filtrar por ano
-- `quilometragemExata` Filtrar por quilometragem exata
-- `quilometragemMin` Filtrar por intervalo de quilometragem
-- `quilometragemMax` Filtrar por intervalo de quilometragem
-- `status` - Filtrar por status (FUNCIONAL, MANUTENCAO)
 
 ---
 
